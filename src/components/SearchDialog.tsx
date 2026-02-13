@@ -3,6 +3,7 @@ import { APP, WEATHER_API } from "@/config";
 import { useCallback, useEffect, useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/input-group"
 import {
   Item,
+  ItemGroup,
   ItemActions,
   ItemContent,
   ItemDescription,
@@ -52,20 +54,109 @@ export const SearchDialog = () => {
   }, []);
 
   useEffect(() => {
+    const shortcut = (event: KeyboardEvent) => {
+      if (event.key === 'k' && event.metaKey || event.ctrlKey) {
+        event.preventDefault();
+        setSearchDialogOpen(true);
+      }
+    }
+
+    document.addEventListener('keydown', shortcut);
+    return () => document.removeEventListener('keydown', shortcut);
+  }, [results])
+
+  useEffect(() => {
     if (!search) return;
 
-    (async () => {
+    const timeoutId = setTimeout(async () => {
       const results = await geoCoding(search);
       console.log(results);
       if (results) setResults(results);
-    })();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
   }, [search, geoCoding]);
 
   return (
-    <div>
-      Search Dialog
-    </div>
+    <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:w-auto lg:px-3 max-lg:size-9 lg:bg-secondary dark:lg:bg-secondary/50"
+          onClick={() => setSearchDialogOpen((prev) => !prev)}
+        >
+          <SearchIcon className="lg:text-muted-foreground" />
+
+          <div className="flex justify-between w-[250px] max-lg:hidden">
+            Search Weather
+            <KbdGroup>
+              <Kbd>Ctrl</Kbd>
+              <Kbd>K</Kbd>
+            </KbdGroup>
+          </div>
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent
+        className="p-0 bg-card gap-0"
+        showCloseButton={false}
+      >
+        <DialogHeader className="sr-only">
+          <DialogTitle>Search Weather</DialogTitle>
+          <DialogDescription>
+            Find weather information for any location
+          </DialogDescription>
+        </DialogHeader>
+
+        <InputGroup className="ring-0! border-t-0! border-x-0! border-b border-boder! rounded-b-none bg-transparent!">
+          <InputGroupInput
+            placeholder="Search weather..."
+            value={search}
+            onInput={(e) => setSearch(e.currentTarget.value)}
+          />
+
+          <InputGroupAddon>
+            <SearchIcon />
+          </InputGroupAddon>
+        </InputGroup>
+
+        <ItemGroup className="min-h-80 p-2">
+          {!results.length && (
+            <p className="text-center text-sm py-4">
+              No results found
+            </p>
+          )}
+
+          {results.map(({ name, lat, lon, state, country }) => (
+            <Item
+              key={name + lat + lon}
+              size="sm"
+              className="relative p-2"
+            >
+              <ItemContent>
+                <ItemTitle>{name}</ItemTitle>
+                <ItemDescription>
+                  {state ? state + ", " : ""}
+                  {country}
+                </ItemDescription>
+              </ItemContent>
+
+              <ItemActions>
+                <DialogClose asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="after:absolute after:inset-0"
+                  >
+                    <MapPinnedIcon />
+                  </Button>
+                </DialogClose>
+              </ItemActions>
+            </Item>
+          ))}
+        </ItemGroup>
+      </DialogContent>
+    </Dialog>
   )
 }
-
-
