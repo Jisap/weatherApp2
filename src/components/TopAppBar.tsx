@@ -2,6 +2,8 @@
 
 import { Logo } from "@/assets/Logo"
 import { SearchDialog } from "./SearchDialog"
+import { ThemeDropdown } from "./ThemeDropdown"
+import { UnitDropdown } from "./UnitDropdown"
 
 export const TopAppBar = () => {
   return (
@@ -10,7 +12,13 @@ export const TopAppBar = () => {
       lg:border lg:rounded-2xl lg:w-auto lg:max-w-384 lg:mx-auto lg:top-4 lg:left-4 lg:right-4"
       >
         <Logo />
-        <SearchDialog />
+        <div className="flex gap-2">
+          <SearchDialog />
+          <div className="flex gap-2">
+            <ThemeDropdown />
+            <UnitDropdown />
+          </div>
+        </div>
       </header>
     </div>
   )
