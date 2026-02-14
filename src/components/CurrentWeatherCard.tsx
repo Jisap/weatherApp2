@@ -53,6 +53,109 @@ export const CurrentWeatherCard = () => {
           {currentWeather.dt}
         </CardDescription>
       </CardHeader>
+
+      <CardContent className="grow">
+        <div className="flex flex-wrap items-center gap-x-6">
+          <figure>
+            <img
+              src={`https://openweathermap.org/img/wn/${currentWeather.iconCode}10d@4x.png`}
+              alt={currentWeather.description}
+              width={70}
+              height={70}
+              className="object-contain"
+            />
+
+            <p className="text-5xl font-medium items-start sm:text-7xl">
+              {currentWeather.temp}
+              <span className="text-3xl">{APP.UNIT.TEMP[weatherUnit]}</span>
+            </p>
+
+            <div>
+              <p className="font-medium capitalize sm:text-lg">
+                {currentWeather.description}
+              </p>
+
+              <div className="text-sm flex items-center gap-2">
+                <span>
+                  Feels like
+                </span>
+
+                <span>
+                  {currentWeather.feelsLike}°
+                </span>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </CardContent>
+
+      <CardFooter className="flex-wrap gap-x-8 gap-y-2 @lg:justify-between">
+        <div>
+          <p className="text-xm text-muted-foreground">Wind</p>
+
+          <div className="flex items-center gap-1">
+            <p>
+              {currentWeather.windSpeed} {APP.UNIT.WIND[weatherUnit]}
+            </p>
+
+            <Navigation2Icon
+              size={14}
+              fill="currentColor"
+              style={{
+                rotate: `${currentWeather.windDeg}deg`
+              }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground">
+            Humidity
+          </p>
+
+          <div className="flex items-center gap-1">
+            <p>
+              {currentWeather.humidity}%
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground">
+            Visibility
+          </p>
+
+          <div className="flex items-center gap-1">
+            <p>
+              {currentWeather.visibility} km
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground">
+            Pressure
+          </p>
+
+          <div className="flex items-center gap-1">
+            <p>
+              {currentWeather.pressure} hPa
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground">
+            Dew Point
+          </p>
+
+          <div className="flex items-center gap-1">
+            <p>
+              {currentWeather.dewPoint} °
+            </p>
+          </div>
+        </div>
+      </CardFooter>
     </Card>
   )
 }
