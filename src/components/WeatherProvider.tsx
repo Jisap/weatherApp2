@@ -2,8 +2,9 @@
 
 import { openWeatherApi } from "@/api";
 import { APP, WEATHER_API } from "@/config";
-import { createContext, useCallback, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { CurrentWeather, MinutelyForecast, Alert, Geocoding, WeatherTimezone, OneCallWeatherRes, HourlyForecast, DailyForecast } from "@/types";
+
 
 
 export type WeatherUNitType = "metric" | "imperial";
@@ -34,19 +35,19 @@ const initialState: WeatherProviderState = {
   setWeather: () => { }
 }
 
-export const WeatherProviderContext = createContext<WeatherProviderState>(initialState);
+const WeatherProviderContext = createContext<WeatherProviderState>(initialState);
 
 export const WeatherProvider = ({ children }: { children: ReactNode }) => {
 
-  const defaultLat = WEATHER_API.DEFAULTS.LAT;
-  const defaultLon = WEATHER_API.DEFAULTS.LON;
-  const defaultUnit = WEATHER_API.DEFAULTS.UNIT;
+  const defaultLat = Number(localStorage.getItem(APP.STORE_KEY.LAT)) || WEATHER_API.DEFAULTS.LAT;
+  const defaultLon = Number(localStorage.getItem(APP.STORE_KEY.LON)) || WEATHER_API.DEFAULTS.LON;
+  const defaultUnit = localStorage.getItem(APP.STORE_KEY.UNIT) as WeatherUNitType || WEATHER_API.DEFAULTS.UNIT;
 
   const [weather, setWeather] = useState<Weather | null>(null);
 
   const oneCall = useCallback(
     async (lat: number, lon: number, units: WeatherUNitType) => {
-      const response = await openWeatherApi.get("/data/3.0/onecall", {
+      const response = await openWeatherApi.get("/data/2.5/weather", {
         params: {
           lat,
           lon,
@@ -93,6 +94,7 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   }, [getWeather]);
 
 
+  console.log(weather)
   return (
     <WeatherProviderContext.Provider
       value={{ weather, setWeather: getWeather }}
@@ -100,4 +102,13 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </WeatherProviderContext.Provider>
   )
+}
+
+export const useWeather = () => {
+  const context = useContext(WeatherProviderContext);
+  if (context === undefined) {
+    throw new Error("useWeather must be used within a WeatherProvider");
+  }
+
+  return context;
 }
