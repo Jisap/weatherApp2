@@ -7,7 +7,7 @@ import type { CurrentWeather, MinutelyForecast, Alert, Geocoding, WeatherTimezon
 
 
 
-export type WeatherUNitType = "metric" | "imperial";
+export type WeatherUnitType = "metric" | "imperial";
 
 type Weather = {
   current: CurrentWeather;
@@ -22,7 +22,7 @@ type Weather = {
 type WeatherStateParam = {
   lat?: number;
   lon?: number;
-  unit?: WeatherUNitType;
+  unit?: WeatherUnitType;
 }
 
 type WeatherProviderState = {
@@ -41,13 +41,13 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
 
   const defaultLat = Number(localStorage.getItem(APP.STORE_KEY.LAT)) || WEATHER_API.DEFAULTS.LAT;
   const defaultLon = Number(localStorage.getItem(APP.STORE_KEY.LON)) || WEATHER_API.DEFAULTS.LON;
-  const defaultUnit = localStorage.getItem(APP.STORE_KEY.UNIT) as WeatherUNitType || WEATHER_API.DEFAULTS.UNIT;
+  const defaultUnit = localStorage.getItem(APP.STORE_KEY.UNIT) as WeatherUnitType || WEATHER_API.DEFAULTS.UNIT;
 
   const [weather, setWeather] = useState<Weather | null>(null);
 
   const oneCall = useCallback(
-    async (lat: number, lon: number, units: WeatherUNitType) => {
-      const response = await openWeatherApi.get("/data/2.5/weather", {
+    async (lat: number, lon: number, units: WeatherUnitType) => {
+      const response = await openWeatherApi.get("/data/2.5/onecall", {
         params: {
           lat,
           lon,

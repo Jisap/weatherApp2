@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 
-import { useWeather, type WeatherUNitType } from "./WeatherProvider"
+import { useWeather, type WeatherUnitType } from "./WeatherProvider"
 
 
 export const UnitDropdown = () => {
 
   const { setWeather } = useWeather();
 
-  const [unit, setUnit] = useState<WeatherUNitType>(localStorage.getItem(APP.STORE_KEY.UNIT) as WeatherUNitType || WEATHER_API.DEFAULTS.UNIT);
+  const [unit, setUnit] = useState<WeatherUnitType>(localStorage.getItem(APP.STORE_KEY.UNIT) as WeatherUnitType || WEATHER_API.DEFAULTS.UNIT);
 
   useEffect(() => {
     setWeather({ unit });
@@ -43,7 +43,7 @@ export const UnitDropdown = () => {
           Weather settings
         </DropdownMenuLabel>
 
-        <DropdownMenuRadioGroup value={unit} onValueChange={(value) => setUnit(value as WeatherUNitType)}>
+        <DropdownMenuRadioGroup value={unit} onValueChange={(value) => setUnit(value as WeatherUnitType)}>
           <DropdownMenuRadioItem value="metric">
             Metric (°C)
           </DropdownMenuRadioItem>
