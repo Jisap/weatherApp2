@@ -1,5 +1,6 @@
 import { ThemeProvider } from "./components/ThemeProvider"
 import { TopAppBar } from "./components/TopAppBar"
+import { WeatherProvider } from "./components/WeatherProvider"
 
 
 
@@ -7,7 +8,9 @@ import { TopAppBar } from "./components/TopAppBar"
 export const App = () => {
   return (
     <ThemeProvider>
-      <TopAppBar />
+      <WeatherProvider>
+        <TopAppBar />
+      </WeatherProvider>
     </ThemeProvider>
   )
 }
