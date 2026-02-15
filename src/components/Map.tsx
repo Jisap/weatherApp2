@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTheme } from "./ThemeProvider";
 import { useWeather } from "./WeatherProvider";
 import { Map as MapType, type LngLatLike } from "mapbox-gl";
-
+import { Marker } from "./Marker";
 
 
 
@@ -48,7 +48,9 @@ export const Map = () => {
       ref={mapContainerRef}
       className="h-[300px] bg-card text-card-foreground rounded-xl overflow-hidden shadow-sm"
     >
-
+      {map && (
+        <Marker map={map} coordinates={center} />
+      )}
     </div>
   )
 }

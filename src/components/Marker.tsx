@@ -42,7 +42,11 @@ export const Marker = ({ map, coordinates }: Props) => {
             className="size-16"
             fill="currentColor"
           />
+
           <span>{weather.current.temp.toFixed()} {APP.UNIT.TEMP[weatherUnit]}</span>
+
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 rotate-45 size-3 rounded-[3px] bg-foreground -z-10">
+          </div>
         </div>,
         markerElement
       )}
