@@ -1,4 +1,5 @@
 import { CurrentWeatherCard } from "./components/CurrentWeatherCard"
+import { Map } from "./components/Map"
 import { PageHeader } from "./components/PageHeader"
 import { ThemeProvider } from "./components/ThemeProvider"
 import { TopAppBar } from "./components/TopAppBar"
@@ -19,6 +20,8 @@ export const App = () => {
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               <CurrentWeatherCard />
+
+              <Map />
             </div>
           </div>
         </main>
