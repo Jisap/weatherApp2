@@ -22,6 +22,9 @@ import { WindChart } from "./windChart";
 import { HumidityChart } from "./HumidityChart";
 import { CloudCoverChart } from "./CloudCover";
 import { PressureChart } from "./PressureChart";
+import { UvIndexChart } from "./UvIndexChart";
+import { VisibilityChart } from "./VisibilityChart";
+import { FeelsLikeChart } from "./FeelsLikeChart";
 
 
 type Tab =
@@ -176,6 +179,42 @@ export const HourlyWeatherTabs = () => {
 
           <CardContent>
             <PressureChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="uv">
+        <Card>
+          <CardHeader>
+            <CardTitle>UV</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <UvIndexChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="visibility">
+        <Card>
+          <CardHeader>
+            <CardTitle>Visibility</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <VisibilityChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="feelsLike">
+        <Card>
+          <CardHeader>
+            <CardTitle>Feels Like</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <FeelsLikeChart />
           </CardContent>
         </Card>
       </TabsContent>
