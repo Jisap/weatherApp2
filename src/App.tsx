@@ -28,6 +28,12 @@ export const App = () => {
             <HourlyWeatherTabs />
           </div>
         </main>
+
+        <footer className="pb-5">
+          <p className="text-center text-muted-foreground">
+            &copy; 2026 Powered by OpenWeatherMap
+          </p>
+        </footer>
       </WeatherProvider>
     </ThemeProvider>
   )
