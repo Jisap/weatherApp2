@@ -19,6 +19,7 @@ import { useState } from "react";
 import { OverviewChart } from "./OverviewChart";
 import { PrecipitationChart } from "./PrecipitationChart";
 import { WindChart } from "./windChart";
+import { HumidityChart } from "./HumidityChart";
 
 
 type Tab =
@@ -137,6 +138,18 @@ export const HourlyWeatherTabs = () => {
 
           <CardContent>
             <WindChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="humidity">
+        <Card>
+          <CardHeader>
+            <CardTitle>Humidity</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <HumidityChart />
           </CardContent>
         </Card>
       </TabsContent>
