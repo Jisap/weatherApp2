@@ -1,4 +1,5 @@
 import { CurrentWeatherCard } from "./components/CurrentWeatherCard"
+import { HourlyWeatherTabs } from "./components/HourlyWeatherTabs"
 import { Map } from "./components/Map"
 import { PageHeader } from "./components/PageHeader"
 import { ThemeProvider } from "./components/ThemeProvider"
@@ -23,6 +24,8 @@ export const App = () => {
 
               <Map />
             </div>
+
+            <HourlyWeatherTabs />
           </div>
         </main>
       </WeatherProvider>
