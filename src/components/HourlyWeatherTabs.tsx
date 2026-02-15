@@ -18,6 +18,8 @@ import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
 import { useState } from "react";
 import { OverviewChart } from "./OverviewChart";
 import { PrecipitationChart } from "./PrecipitationChart";
+import { WindChart } from "./windChart";
+
 
 type Tab =
   | "overview"
@@ -123,6 +125,18 @@ export const HourlyWeatherTabs = () => {
 
           <CardContent>
             <PrecipitationChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="wind">
+        <Card>
+          <CardHeader>
+            <CardTitle>Wind</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <WindChart />
           </CardContent>
         </Card>
       </TabsContent>
