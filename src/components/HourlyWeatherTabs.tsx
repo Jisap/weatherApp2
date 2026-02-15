@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
 import { useState } from "react";
+import { OverviewChart } from "./OverviewChart";
 
 type Tab =
   | "overview"
@@ -100,6 +101,18 @@ export const HourlyWeatherTabs = () => {
           ))}
         </TabsList>
       </div>
+
+      <TabsContent value="overview">
+        <Card>
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <OverviewChart />
+          </CardContent>
+        </Card>
+      </TabsContent>
     </Tabs>
   )
 }
